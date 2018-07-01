@@ -16,6 +16,7 @@ export default class TowerManager implements IDestroyable, IAnimatable {
 
     constructor(state: PlayState) {
         this._collection = [];
+        this._towerBasements = [];
         this._onTowerSpawned = new Signal(BaseTowerData);
         this.onTowerUpgradeRequest = new Signal(BaseTowerData);
         this._state = state;
@@ -23,7 +24,7 @@ export default class TowerManager implements IDestroyable, IAnimatable {
     }
 
     public findAllBasements() {
-
+        
     }
 
     public advanceTime(time: number): void {

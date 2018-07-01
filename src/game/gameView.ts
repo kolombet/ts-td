@@ -168,6 +168,7 @@ export default class GameView implements IAnimatable, IDestroyable {
     public load(state: PlayState): void {
         this._state = state;
 
+        this._state.towerManager.onTowerDestroyed.add(this.objectRemoved.bind(this));
         this._state.towerManager.onTowerSpawned.add(this.objectAdded.bind(this));
         this._state.creepManager.onCreepSpawned.add(this.objectAdded.bind(this));
         this._state.creepManager.onCreepKilled.add(this.objectRemoved.bind(this));
@@ -196,6 +197,7 @@ export default class GameView implements IAnimatable, IDestroyable {
     }
 
     public destroy(): void {
+        this._state.towerManager.onTowerDestroyed.remove(this.objectRemoved);
         this._state.towerManager.onTowerSpawned.remove(this.objectAdded);
         this._state.creepManager.onCreepSpawned.remove(this.objectAdded);
         this._state.creepManager.onCreepKilled.remove(this.objectRemoved);

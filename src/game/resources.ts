@@ -12,6 +12,8 @@ import BasicTower from "./basicTower";
 import App from "./app";
 import AOETower from "./AOETower";
 import FrostTower from "./frostTower";
+import BasementTower from "./basementTower";
+import CellGraphics from "./cellGraphics";
 
 export default class Resources {
     private static JSON: string = ".json";
@@ -26,6 +28,7 @@ export default class Resources {
 
     private _atlas: TextureAtlas;
     private _assets: AssetManager;
+
     // private _onLoadHandler: Function;
 
     constructor(assets: AssetManager) {
@@ -101,7 +104,7 @@ export default class Resources {
 
     public getTower3(): Image {
         // return this.getCenterImage(Constants.TowerRes, true);
-        let tower =  this.getCenterImage("towers/tower3");
+        let tower = this.getCenterImage("towers/tower3");
         tower.scale = 0.2;
         return tower;
     }
@@ -111,7 +114,11 @@ export default class Resources {
         let img: Image;
         if (towerData instanceof BasicTower) {
             img = App.resources.getTower1();
-            img.pivotY += img.height / 3;
+
+            img.pivotX = img.width/2;
+            img.pivotY = img.height;
+            img.y = Config.TILE_SIZE;
+
             img.scale = 1;
         }
         else if (towerData instanceof AOETower) {
@@ -122,6 +129,15 @@ export default class Resources {
         else if (towerData instanceof FrostTower) {
             img = App.resources.getTower3();
             img.scale = .2;
+        }
+        else if (towerData instanceof BasementTower) {
+            const tex = App.resources.assets.getTexture(Config.TestTile);
+            img = new Image(tex);
+            img.pivotX = tex.width/2;
+            img.pivotY = tex.height;
+            img.y = Config.TILE_SIZE;
+            // img.pivotX = 33;
+            // img.pivotY = 17;
         }
 
         return img;
@@ -172,8 +188,8 @@ export default class Resources {
     //     }
     // }
 
-    private getCenterImage(path: string, isFromAssetManager:boolean = false): Image {
-        let texture:Texture;
+    private getCenterImage(path: string, isFromAssetManager: boolean = false): Image {
+        let texture: Texture;
         if (isFromAssetManager) {
             texture = this.assets.getTexture(path);
         } else {

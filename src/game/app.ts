@@ -114,6 +114,7 @@ export default class App extends Sprite implements IAnimatable {
         this._view = new GameView(this);
         this._view.load(this._state);
         this._state.init();
+
         this._isRecreating = false;
     }
 

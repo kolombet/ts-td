@@ -28,6 +28,7 @@ export default class TowerView extends Sprite implements IGameView
         this._towerData = towerData;
         let img:Image = App.resources.getTowerByData(this._towerData);
         this.addChild(img);
+
     }
 
     getGuid() {

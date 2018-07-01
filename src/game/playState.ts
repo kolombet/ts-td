@@ -82,11 +82,14 @@ export class PlayState implements IAnimatable, IDestroyable {
         this._passModel = new FloodPassModel();
         this._passModel.init(this._map.data);
         this._map.calculateRoads(this._passModel);
+
+
     }
 
     public init(): void {
         this.activateNormal();
         this._creepManager.onCreepPassed.add(this.onCreepPassedHandler.bind(this));
+        this.towerManager.findAllBasements();
         //console.log("Level started: " + this._levelID + " uid: " + this._uid);
     }
 

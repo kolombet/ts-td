@@ -11,6 +11,7 @@ import KPoint from "./KPoint";
 import ObjType from "./objType";
 import {Guid} from "guid-typescript";
 import {TowerType} from "./towerFacotry";
+import NoDamage from "./noDamage";
 
 export default class BaseTowerData implements IGameObj, IDestroyable {
     protected _type: string;
@@ -61,7 +62,8 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
         }
 
         if (this._towerState == TowerState.ATTACK) {
-            if (this._shootCooldown <= 0) {
+            const passive = this._effect instanceof NoDamage;
+            if (this._shootCooldown <= 0  && !passive) {
                 this._shootCooldown += this._shootSpeed;
                 this._state.bulletManager.spawn(this._currentEnemy,
                     this._effect, this._x, this._y);
@@ -114,8 +116,11 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
             tile.tileType = TileType.BUILDING;
         });
         this._tilesOccupied = value;
-        this._x = 0.25 * (value[0].cx + value[1].cx + value[2].cx + value[3].cx);
-        this._y = 0.25 * (value[0].cy + value[1].cy + value[2].cy + value[3].cy);
+        // this._x = 0.25 * (value[0].cx + value[1].cx + value[2].cx + value[3].cx);
+        // this._y = 0.25 * (value[0].cy + value[1].cy + value[2].cy + value[3].cy);
+        this._x = value[0].cx;
+        this._y = value[0].cy;
+        console.log("CXCY")
     }
 
     public get targetTiles(): TileData[] {

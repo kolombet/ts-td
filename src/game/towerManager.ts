@@ -6,25 +6,35 @@ import TileType from "./tileType";
 import BaseTowerData from "./baseTowerData";
 import Console from "./console";
 import KPoint from "./KPoint";
+import BasementTower from "./basementTower";
+import {TowerFactory} from "./towerFacotry";
 
 export default class TowerManager implements IDestroyable, IAnimatable {
+    get onTowerSpawned(): Signal {
+        return this._onTowerSpawned;
+    }
+
     private _state: PlayState;
     private _collection: BaseTowerData[];
     private _onTowerSpawned: Signal;
-    private _towerBasements: BaseTowerData[];
+    public onTowerDestroyed:Signal;
     public onTowerUpgradeRequest: Signal;
 
     constructor(state: PlayState) {
         this._collection = [];
-        this._towerBasements = [];
         this._onTowerSpawned = new Signal(BaseTowerData);
+        this.onTowerDestroyed = new Signal(BaseTowerData);
         this.onTowerUpgradeRequest = new Signal(BaseTowerData);
         this._state = state;
-        this.findAllBasements();
     }
 
     public findAllBasements() {
-        
+        const map = this._state.map;
+        this._collection = map.findAllBasements();
+        for (let basement of this._collection) {
+            this._onTowerSpawned.dispatch(basement);
+        }
+        console.log("found basements")
     }
 
     public advanceTime(time: number): void {
@@ -58,7 +68,7 @@ export default class TowerManager implements IDestroyable, IAnimatable {
         tiles.push(this.getTile(tileData.gridX - 1, tileData.gridY - 1));
         tiles.push(this.getTile(tileData.gridX, tileData.gridY - 1));
 
-        const freeTiles = tiles.filter((tileData:TileData) => {
+        const freeTiles = tiles.filter((tileData: TileData) => {
             return tileData.tileType == TileType.BUILDSITE;
         });
         console.log("free tiles " + freeTiles.length);
@@ -78,7 +88,6 @@ export default class TowerManager implements IDestroyable, IAnimatable {
         Console.log("tower placed " + tower.x + " " + tower.y);
         this._onTowerSpawned.dispatch(tower);
         this._collection.push(tower);
-
 
         return true;
     }
@@ -101,24 +110,33 @@ export default class TowerManager implements IDestroyable, IAnimatable {
         this._onTowerSpawned = null;
     }
 
-    public get onTowerSpawned(): Signal {
-        return this._onTowerSpawned;
-    }
-
     public getTowerByCoordinates(point: TileData): BaseTowerData {
         for (let i: number = 0, l: number = this._collection.length; i < l; i++) {
             const tower = this._collection[i];
-            const tiles:TileData[] = tower.targetTiles;
+            const tiles: TileData[] = tower.targetTiles;
             for (const tile of tiles) {
-                let isEqual = tile.gridX == point.gridX && tile.gridY == point.gridY;
+                const isEqual = tile.gridX == point.gridX && tile.gridY == point.gridY;
                 if (isEqual)
                     return tower;
             }
         }
+
         return null;
     }
 
     public activateTowerUpgrade(towerData: BaseTowerData): void {
         this.onTowerUpgradeRequest.dispatch(towerData);
+    }
+
+    public upgradeTower(towerData: BaseTowerData) {
+        if (towerData instanceof BasementTower) {
+            const index = this._collection.indexOf(towerData);
+            this._collection.splice(index, 1);
+            const newTower = TowerFactory.createBasicTower(this._state);
+            newTower.targetTiles = towerData.targetTiles;
+            this.onTowerDestroyed.dispatch(towerData);
+            this._onTowerSpawned.dispatch(newTower);
+            this._collection.push(newTower);
+        }
     }
 }

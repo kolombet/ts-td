@@ -8,9 +8,9 @@ export default class BasementTower extends BaseTowerData {
     constructor(state: PlayState) {
         super(state, BulletEffects.nodamage);
         this._towerType = TowerType.BASEMENT;
-        this._radius = 1.5 * Config.TILE_SIZE;
-        this._shootSpeed = .5;
-        this._price = 50;
+        this._radius = 0;
+        this._shootSpeed = 999999999;
+        this._price = 0;
     }
 
 }

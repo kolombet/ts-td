@@ -12,6 +12,7 @@ import Console from "./console";
 import TileData from "./tileData";
 import BaseTowerData from "./baseTowerData";
 import {TowerFactory} from "./towerFacotry";
+import BasementTower from "./basementTower";
 
 export default class NormalMode extends BaseMode {
     private _scene: Sprite;
@@ -38,11 +39,16 @@ export default class NormalMode extends BaseMode {
                     let tile = this._state.map.getTileByCoords(p.x, p.y);
                     if (tile != null) {
                         const tower = this._state.towerManager.getTowerByCoordinates(tile);
+
                         console.log("try to touch " + tile.gridX + " " + tile.gridY);
 
                         if (tower != null) {
-                            console.log("tower upgrade request");
-                            this._state.towerManager.activateTowerUpgrade(tower);
+                            if (tower instanceof BasementTower) {
+                                this._state.towerManager.upgradeTower(tower);
+                            } else {
+                                console.log("tower upgrade request");
+                                this._state.towerManager.activateTowerUpgrade(tower);
+                            }
                         } else {
                             this.tryToBuild(tile);
                         }

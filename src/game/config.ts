@@ -4,8 +4,8 @@ export default class Config {
 	public static GAME_SPEED_MULTIPLIER = 1;
 	public static TILE_SIZE: number = 32;
 	public static TILE_SIZE_HALF: number = 16;
-	public static ISO_TILE_HEIGHT: number = 32;
-	public static ISO_TILE_WIDTH: number = 64;
+	// public static ISO_TILE_HEIGHT: number = 32;
+	// public static ISO_TILE_WIDTH: number = 64;
 	public static TICK_TIME: number = .1;
 	public static BASE_URL: string = "resources/";
 	public static LEVEL_RES: string = "level_";
@@ -33,6 +33,8 @@ export default class Config {
     public static TowerRes: string = "assets/game/tower.png";
     public static UpgradeButtonFire: string = "assets/game/fire-icon.png";
     public static UpgradeButtonWater: string = "assets/game/water-icon.png";
+    public static Basement: string = "assets/game/basement.png";
+    public static TestTile: string = "assets/game/test-tile.png";
 
     public static DEBUG_CREEP_CENTER:boolean = false;
     public static DEBUG_WAVE_AUTOSTART:boolean = true;

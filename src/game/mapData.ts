@@ -16,6 +16,8 @@ import Console from "./console";
 import TileType from "./tileType";
 import Save from "./save";
 import PassModel from "./passModel";
+import BaseTowerData from "./baseTowerData";
+import BasementTower from "./basementTower";
 
 class MapDataSave {
     size: number;
@@ -41,6 +43,32 @@ export default class MapData implements ISaveLoadable, IDestroyable {
         this._state = state;
         this.backgroundURL = Config.BACKGROUND_RES + this._state.levelID + Config.RES_FORMAT;
         //console.log("map url: " + this.backgroundURL);
+    }
+
+    public findAllBasements():BaseTowerData[] {
+        const basements: BaseTowerData[] = [];
+        const mapData = this._data;
+        for (let x: number = 0; x < mapData.length; x++) {
+            let column: TileData[] = mapData[x];
+            for (let y: number = 0; y < column.length; y++) {
+                let tile = column[y];
+                if (tile.tileType == TileType.BUILDSITE) {
+                    let tile1 = mapData[x+1][y];
+                    let tile2 = mapData[x][y+1];
+                    let tile3 = mapData[x+1][y+1];
+                    const site:TileData[] = [
+                        tile,
+                        tile1,
+                        tile2,
+                        tile3
+                    ];
+                    const basement = new BasementTower(this._state);
+                    basement.targetTiles = site;
+                    basements.push(basement);
+                }
+            }
+        }
+        return basements;
     }
 
     public getTileByCoords(x: number, y: number): TileData {

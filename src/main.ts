@@ -88,7 +88,9 @@ class Main extends Sprite {
             Config.Creeps,
             Config.TowerRes,
             Config.UpgradeButtonFire,
-            Config.UpgradeButtonWater
+            Config.UpgradeButtonWater,
+            Config.Basement,
+            Config.TestTile
         ]
     }
 

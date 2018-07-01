@@ -32,20 +32,20 @@ export default class GridCell extends Sprite
         return this.t;
     }
     
-    public drawEmptyTile():void
-    {
-        this.drawTile(0x0000ff);
-    }
-    
-    public drawOccupiedTile():void
-    {
-        this.drawTile(0xff00ff);
-    }
+    // public drawEmptyTile():void
+    // {
+    //     this.drawTile(0x0000ff);
+    // }
+    //
+    // public drawOccupiedTile():void
+    // {
+    //     this.drawTile(0xff00ff);
+    // }
     
     public drawTile(borderColor:number = 0xff00ff, fill:boolean = false, fillColor:number = 0xff0000):void
     {
-        let w:number = Config.ISO_TILE_WIDTH;
-        let h:number = Config.ISO_TILE_HEIGHT;
+        // let w:number = Config.ISO_TILE_WIDTH;
+        // let h:number = Config.ISO_TILE_HEIGHT;
         
         // if (fill)
         // {

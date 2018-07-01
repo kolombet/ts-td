@@ -145,7 +145,7 @@ class TileView extends Sprite {
     }
 
     public setText(text: string) {
-        console.log("set text");
+        // console.log("set text");
         this._label.text = text;
     }
 

@@ -2,6 +2,7 @@ import BaseTowerData from "./baseTowerData";
 import { PlayState } from "./playState";
 import BulletEffects from "./bulletEffects";
 import Config from "./config";
+import {TowerType} from "./towerFacotry";
 
 export default class FrostTower extends BaseTowerData {
     //Пушка 3:
@@ -13,6 +14,7 @@ export default class FrostTower extends BaseTowerData {
     // Стоимость = 50
     constructor(state: PlayState) {
         super(state, BulletEffects.slow);
+        this._towerType = TowerType.FROST;
         this._radius = 1.5 * Config.TILE_SIZE;
         this._shootSpeed = .5;
         this._price = 50;

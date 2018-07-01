@@ -2,6 +2,7 @@ import { PlayState } from "./playState";
 import Config from "./config";
 import BaseTowerData from "./baseTowerData";
 import BulletEffects from "./bulletEffects";
+import {TowerType} from "./towerFacotry";
 
 export default class AOETower extends BaseTowerData {
     //
@@ -14,6 +15,7 @@ export default class AOETower extends BaseTowerData {
 
     constructor(state: PlayState) {
         super(state, BulletEffects.damageAOE);
+        this._towerType = TowerType.AOE;
         this._radius = 4 * Config.TILE_SIZE;
         this._shootSpeed = 4;
         this._price = 85;

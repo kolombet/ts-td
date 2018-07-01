@@ -2,6 +2,7 @@ import BaseTowerData from "./baseTowerData";
 import { PlayState } from "./playState";
 import BulletEffects from "./bulletEffects";
 import Config from "./config";
+import {TowerType} from "./towerFacotry";
 
 export default class BasicTower extends BaseTowerData {
     /*
@@ -15,12 +16,10 @@ export default class BasicTower extends BaseTowerData {
 
     constructor(state: PlayState) {
         super(state, BulletEffects.single);
+
+        this._towerType = TowerType.BASIC;
         this._radius = Config.BASIC_TOWER_RADIUS;
         this._shootSpeed = Config.BASIC_TOWER_SHOOT_SPEED;
         this._price = Config.BASIC_TOWER_PRICE;
-    }
-
-    /*override*/ public advanceTime(time: number): void {
-        super.advanceTime(time);
     }
 }

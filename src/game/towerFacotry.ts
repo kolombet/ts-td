@@ -40,7 +40,7 @@ export class TowerFactory {
         return new FrostTower(state);
     }
 
-    public static generate(state: PlayState, type: string): BaseTowerData {
+    public static generate(state: PlayState, type: TowerType): BaseTowerData {
         if (type == TowerType.BASIC) {
             return new BasicTower(state);
         }
@@ -56,8 +56,9 @@ export class TowerFactory {
     }
 }
 
-export class TowerType {
-    public static BASIC: string = "BASIC";
-    public static AOE: string = "AOE";
-    public static FROST: string = "FROST";
+export enum TowerType {
+    BASEMENT,
+    BASIC,
+    AOE,
+    FROST,
 }

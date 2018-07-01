@@ -10,6 +10,7 @@ import StrategyNearestToBase from "./strategyNearestToBase";
 import KPoint from "./KPoint";
 import ObjType from "./objType";
 import {Guid} from "guid-typescript";
+import {TowerType} from "./towerFacotry";
 
 export default class BaseTowerData implements IGameObj, IDestroyable {
     protected _type: string;
@@ -27,6 +28,7 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
     protected _size: number;
     protected _tilesOccupied: TileData[];
     protected _uid: string;
+    protected _towerType: TowerType;
 
     constructor(state: PlayState, effect: IEffect) {
         this._effect = effect;

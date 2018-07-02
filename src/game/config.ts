@@ -25,7 +25,7 @@ export default class Config {
     public static CenterX: number = Math.floor(Config.GameWidth / 2);
     public static CenterY: number = Math.floor(Config.GameHeight / 2);
 
-    public static Map: string = "assets/game/background.jpg";
+    public static Map: string = "assets/game/backgroundBig.png";
     public static Creeps: string = "assets/game/creeps.png";
     public static CreepsXML: string = "assets/game/creeps.xml";
     public static LevelRes: string = "level.json";

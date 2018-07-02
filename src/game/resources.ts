@@ -93,6 +93,7 @@ export default class Resources {
     }
 
     public getTower1(): Image {
+
         return this.getCenterImage(Config.TowerRes, true);
         // return this.getCenterImage("towers/tower1");
     }
@@ -113,9 +114,9 @@ export default class Resources {
         //console.log("get tower by data");
         let img: Image;
         if (towerData instanceof BasicTower) {
-            img = App.resources.getTower1();
 
-            img.pivotX = img.width/2;
+            img = new Image(App.resources.assets.getTexture("tower"));
+            img.pivotX = img.width / 2;
             img.pivotY = img.height;
             img.y = Config.TILE_SIZE;
 
@@ -131,9 +132,11 @@ export default class Resources {
             img.scale = .2;
         }
         else if (towerData instanceof BasementTower) {
-            const tex = App.resources.assets.getTexture(Config.TestTile);
+
+            const tex = App.resources.assets.getTexture("basement");
+            // const tex = App.resources.assets.getTexture(Config.TestTile);
             img = new Image(tex);
-            img.pivotX = tex.width/2;
+            img.pivotX = tex.width / 2;
             img.pivotY = tex.height;
             img.y = Config.TILE_SIZE;
             // img.pivotX = 33;
@@ -218,4 +221,7 @@ export default class Resources {
     public get assets(): AssetManager {
         return this._assets;
     }
+
+
 }
+

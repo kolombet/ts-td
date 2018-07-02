@@ -22,6 +22,7 @@ import RectangleUtil from "starling/utils/RectangleUtil";
 import App from "./game/app";
 import Config from "./game/config";
 import Lib from "openfl/Lib";
+import AtlasData from "./game/atlasData";
 
 class Main extends Sprite {
     private _starling: Starling;
@@ -113,15 +114,19 @@ class Main extends Sprite {
         manifest.addText(Config.WaveRes);
 
 
-        manifest.addBitmapData("assets/textures/1x/atlas.png");
-        manifest.addText("assets/textures/1x/atlas.xml");
+
+        const atlasMap = AtlasData.getAtlasMap();
+        manifest.addBitmapData(atlasMap.pngURL);
+        manifest.addText(atlasMap.xmlURL);
+        // manifest.addBitmapData("assets/textures/1x/atlas.png");
+        // manifest.addText("assets/textures/1x/atlas.xml");
         // manifest.addBitmapData("assets/fonts/1x/desyrel.png");
         // manifest.addText("assets/fonts/1x/desyrel.fnt");
-        manifest.addBitmapData("assets/textures/1x/background.jpg");
+        // manifest.addBitmapData("assets/textures/1x/background.jpg");
         // manifest.addSound(["assets/audio/wing_flap.ogg", "assets/audio/wing_flap.mp3"]);
-        manifest.addBytes("assets/textures/1x/compressed_texture.atf");
-        manifest.addFont("DejaVu Sans");
-        manifest.addFont("Ubuntu");
+        // manifest.addBytes("assets/textures/1x/compressed_texture.atf");
+        // manifest.addFont("DejaVu Sans");
+        // manifest.addFont("Ubuntu");
 
         AssetLibrary.loadFromManifest(manifest).onComplete(function (library) {
 
@@ -149,18 +154,25 @@ class Main extends Sprite {
             }
 
             //console.log("loaded textures")
-            let atlasTexture: Texture = Texture.fromBitmapData(Assets.getBitmapData("assets/textures/1x/atlas.png"), false);
-            let atlasXml: String = Assets.getText("assets/textures/1x/atlas.xml");
             // let desyrelTexture: Texture = Texture.fromBitmapData(Assets.getBitmapData("assets/fonts/1x/desyrel.png"), false);
             // let desyrelXml: String = Assets.getText("assets/fonts/1x/desyrel.fnt");
             // let bitmapFont = new BitmapFont(desyrelTexture, desyrelXml);
             // TextField.registerCompositor(bitmapFont, bitmapFont.name);
-            assets.addTexture("atlas", atlasTexture);
-            assets.addTextureAtlas("atlas", new TextureAtlas(atlasTexture, atlasXml));
-            assets.addTexture("background", Texture.fromBitmapData(Assets.getBitmapData("assets/textures/1x/background.jpg"), false));
+
+            // let atlasTexture: Texture = Texture.fromBitmapData(Assets.getBitmapData("assets/textures/1x/atlas.png"), false);
+            // let atlasXml: String = Assets.getText("assets/textures/1x/atlas.xml");
+            // assets.addTexture("atlas", atlasTexture);
+            // assets.addTextureAtlas("atlas", new TextureAtlas(atlasTexture, atlasXml));
+
+            let mapPng = Texture.fromBitmapData(Assets.getBitmapData(atlasMap.pngURL), false);
+            let mapXML = Assets.getText(atlasMap.xmlURL);
+            assets.addTextureAtlas(atlasMap.name, new TextureAtlas(mapPng, mapXML));
+
+
+            // assets.addTexture("background", Texture.fromBitmapData(Assets.getBitmapData("assets/textures/1x/background.jpg"), false));
             // assets.addSound("wing_flap", Assets.getSound("assets/audio/wing_flap.ogg"));
-            let compressedTexture: ByteArray = Assets.getBytes("assets/textures/1x/compressed_texture.atf");
-            assets.addByteArray("compressed_texture", compressedTexture);
+            // let compressedTexture: ByteArray = Assets.getBytes("assets/textures/1x/compressed_texture.atf");
+            // assets.addByteArray("compressed_texture", compressedTexture);
             oneComplete(assets);
 
         }).onProgress((bytesLoaded, bytesTotal) => {

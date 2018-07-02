@@ -76,7 +76,8 @@ export default class App extends Sprite implements IAnimatable {
 
         let stageScale:number = Math.min(stageScaleX, stageScaleY);
         this._view.scalableScene.scale = stageScale;
-        this._view.background.scale = stageScale;
+        //TODO new background with no scaling
+        this._view.background.scale = stageScale * 1.45;
         console.log("updateScalableScene size " + this._view.scalableScene.x);
 
         this._view.setSceneShift(Config.SCENE_SHIFT, stageScale);

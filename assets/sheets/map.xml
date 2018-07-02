@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
-<!-- $TexturePacker:SmartUpdate:adedda155490736b8a8f5ebc01f0422c:3a4a7c62aff4b846a229172c881f9ae6:0dfc841d4bb3fefb3d57c7e7549398f6$ -->
-<TextureAtlas imagePath="map.png" width="375" height="245">
+<!-- $TexturePacker:SmartUpdate:85bcf22bbf1cbc02b7e817732b073712:4fc1784ee9af0789f0894e28d5404121:0dfc841d4bb3fefb3d57c7e7549398f6$ -->
+<TextureAtlas imagePath="map.png" width="229" height="246">
     <SubTexture name="creep" x="0" y="0" width="40" height="40"/>
     <SubTexture name="towerFire" x="166" y="0" width="63" height="121"/>
     <SubTexture name="towerIce" x="103" y="0" width="63" height="121"/>
     <SubTexture name="tower" x="40" y="0" width="63" height="121"/>
-    <SubTexture name="basement" x="229" y="0" width="66" height="34"/>
-    <SubTexture name="hpBar" x="295" y="0" width="80" height="8"/>
-    <SubTexture name="emptyHpBar" x="0" y="121" width="80" height="8"/>
-    <SubTexture name="stoneButton" x="80" y="121" width="217" height="57"/>
-    <SubTexture name="bottomLeftBar" x="0" y="178" width="344" height="67"/>
+    <SubTexture name="basement" x="0" y="121" width="66" height="34"/>
+    <SubTexture name="hpBar" x="66" y="121" width="80" height="8"/>
+    <SubTexture name="emptyHpBar" x="146" y="121" width="80" height="8"/>
+    <SubTexture name="bottomLeftBar" x="0" y="155" width="172" height="34"/>
+    <SubTexture name="stoneButton" x="0" y="189" width="217" height="57"/>
 </TextureAtlas>

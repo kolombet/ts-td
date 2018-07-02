@@ -27,6 +27,8 @@ export default class App extends Sprite implements IAnimatable {
     private _view: GameView;
     private _currentLevelID: number;
     private _isRecreating: boolean = false;
+    private _canvasWidth:number;
+    private _canvasHeight:number;
 
     constructor() {
         super();
@@ -71,6 +73,8 @@ export default class App extends Sprite implements IAnimatable {
     }
 
     public updateScale(canvasWidth:number, canvasHeight:number):void {
+        this._canvasWidth = canvasWidth;
+        this._canvasHeight = canvasHeight;
         let stageScaleX = canvasWidth / Config.GameWidth;
         let stageScaleY = canvasHeight / Config.GameHeight;
 
@@ -107,6 +111,7 @@ export default class App extends Sprite implements IAnimatable {
     public restartLevel(): void {
         this.clearLevel();
         this.startLevel(this._currentLevelID);
+
     }
 
     public startLevel(levelID: number): void {
@@ -121,7 +126,13 @@ export default class App extends Sprite implements IAnimatable {
 
     private onGameEndedHandler(): void {
         this.clearLevel();
+        this._currentLevelID = 0;
+        this.startNewGame();
+    }
+
+    public startNewGame() {
         this.startLevel(this._currentLevelID);
+        this.updateScale(this._canvasWidth, this._canvasHeight);
     }
 
     public static getScene(): Sprite {

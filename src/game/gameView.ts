@@ -21,7 +21,7 @@ import App from "./app";
 import DebugUI from "./debugUI";
 import UpgradeView from "./upgradeView";
 import TowerStatView from "./towerStatView";
-
+import MainUI from "./mainUI";
 
 export default class GameView implements IAnimatable, IDestroyable {
     get gridView(): GridView {
@@ -42,6 +42,7 @@ export default class GameView implements IAnimatable, IDestroyable {
     private _viewsV: IGameView[];
     private _background: Image;
     private _debugUI: DebugUI;
+    private _mainUI: MainUI;
     private _currentMode: BaseMode;
     private _gameObjectsLayer: Sprite;
     private _shadowTower: ShadowTowerView;
@@ -61,6 +62,8 @@ export default class GameView implements IAnimatable, IDestroyable {
 
         this._gridView = new GridView();
         this._debugUI = new DebugUI();
+
+        this._mainUI = new MainUI();
 
         this._levelView = new Sprite();
 
@@ -82,6 +85,7 @@ export default class GameView implements IAnimatable, IDestroyable {
         this._topView.addChild(this._towerStatView);
 
         this._topView.addChild(this._debugUI);
+        this._topView.addChild(this._mainUI);
     }
 
     private onModeActivated(mode: BaseMode): void {
@@ -181,6 +185,7 @@ export default class GameView implements IAnimatable, IDestroyable {
         this._upgradeView.init(state);
 
         this._debugUI.init(state);
+        this._mainUI.init(state);
         this._towerStatView.init(state);
 
         this._state.activateNormal();

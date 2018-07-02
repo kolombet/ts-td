@@ -14,6 +14,42 @@ import {TowerType} from "./towerFacotry";
 import NoDamage from "./noDamage";
 
 export default class BaseTowerData implements IGameObj, IDestroyable {
+    public get shootSpeed(): number {
+        return this._shootSpeed;
+    }
+
+    public get y(): number {
+        return this._y;
+    }
+
+    public get x(): number {
+        return this._x;
+    }
+
+    public get coords(): KPoint {
+        return new KPoint(this._x, this._y);
+    }
+
+    public get state(): PlayState {
+        return this._state;
+    }
+
+    public get type(): string {
+        return this._type;
+    }
+
+    public get radius(): number {
+        return this._radius;
+    }
+
+    public get size(): number {
+        return this._size;
+    }
+
+    public get price(): number {
+        return this._price;
+    }
+
     protected _type: string;
     protected _radius: number;
     protected _shootSpeed: number;
@@ -63,7 +99,7 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
 
         if (this._towerState == TowerState.ATTACK) {
             const passive = this._effect instanceof NoDamage;
-            if (this._shootCooldown <= 0  && !passive) {
+            if (this._shootCooldown <= 0 && !passive) {
                 this._shootCooldown += this._shootSpeed;
                 this._state.bulletManager.spawn(this._currentEnemy,
                     this._effect, this._x, this._y);
@@ -71,37 +107,6 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
         }
     }
 
-    public get y(): number {
-        return this._y;
-    }
-
-    public get x(): number {
-        return this._x;
-    }
-
-    public get coords(): KPoint {
-        return new KPoint(this._x, this._y);
-    }
-
-    public get state(): PlayState {
-        return this._state;
-    }
-
-    public get type(): string {
-        return this._type;
-    }
-
-    public get radius(): number {
-        return this._radius;
-    }
-
-    public get size(): number {
-        return this._size;
-    }
-
-    public get price(): number {
-        return this._price;
-    }
 
     public destroy(): void {
         this._towerState = null;
@@ -112,7 +117,7 @@ export default class BaseTowerData implements IGameObj, IDestroyable {
     }
 
     public set targetTiles(value: TileData[]) {
-        value.forEach(function (tile:TileData) {
+        value.forEach(function (tile: TileData) {
             tile.tileType = TileType.BUILDING;
         });
         this._tilesOccupied = value;

@@ -11,6 +11,9 @@ import IsoTransform from "./isoTransform";
 import Touch from "starling/events/Touch";
 import TouchPhase from "starling/events/TouchPhase";
 import TouchEvent from "starling/events/TouchEvent";
+import BaseMode from "./baseMode";
+import TowerSelectedMode from "./towerSelectedMode";
+import NormalMode from "./normalMode";
 
 export default class UpgradeView extends Sprite {
     fireButton: ElementButtonView;
@@ -70,11 +73,19 @@ export default class UpgradeView extends Sprite {
     public init(state: PlayState) {
         this._state = state;
         this._state.towerManager.onTowerUpgradeRequest.add(this.towerUpgradeRequest.bind(this));
-        // App.getScene().addEventListener(TouchEvent.TOUCH, this.onFireButtonTouch.bind(this));
+        this._state.modeActivated.add(this.towerDeselected.bind(this));
+    }
+
+    towerDeselected(mode:BaseMode) {
+        if (mode instanceof TowerSelectedMode) {
+            this.visible = true;
+        }
+        if (mode instanceof NormalMode) {
+            this.visible = false;
+        }
     }
 
     towerUpgradeRequest(towerData: BaseTowerData) {
-        this.visible = true;
         const point = IsoTransform.fromP(towerData.coords);
         this.fireButton.x = point.x - 50;
         this.fireButton.y = point.y;

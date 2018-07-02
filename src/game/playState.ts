@@ -29,6 +29,8 @@ import BuildTowerMode from "./buildTowerMode";
 import PassModel from "./passModel";
 import NormalMode from "./normalMode";
 import FloodPassModel from "./floodPassModel";
+import TowerSelectedMode from "./towerSelectedMode";
+import BaseTowerData from "./baseTowerData";
 
 export class PlayState implements IAnimatable, IDestroyable {
     private _passModel: IPassModel;
@@ -94,6 +96,9 @@ export class PlayState implements IAnimatable, IDestroyable {
     public init(): void {
         this.activateNormal();
         this._creepManager.onCreepPassed.add(this.onCreepPassedHandler.bind(this));
+        this._towerManager.onTowerUpgradeRequest.add(tower => {
+            this.activateTowerSelected(tower);
+        });
         this.towerManager.findAllBasements();
         //console.log("Level started: " + this._levelID + " uid: " + this._uid);
     }
@@ -168,6 +173,13 @@ export class PlayState implements IAnimatable, IDestroyable {
 
         this._modeActivated.dispatch(this._currentMode);
         // this.activateMode(NormalMode);
+    }
+
+    public activateTowerSelected(tower:BaseTowerData):void {
+        this.deactivatePrevMode();
+        this._currentMode = new TowerSelectedMode();
+        this._currentMode.activate(this, tower);
+        this._modeActivated.dispatch(this._currentMode);
     }
 
     public activateBuild(towerFactory: Function): void {

@@ -117,7 +117,7 @@
             <key>basic</key>
             <struct type="AlgorithmBasicSettings">
                 <key>sortBy</key>
-                <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
+                <enum type="AlgorithmBasicSettings::SortBy">Width</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
             </struct>
@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -194,6 +194,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">map/bottomLeftBar.jpg</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>86,17,172,33</rect>
+                <key>scale9Paddings</key>
+                <rect>86,17,172,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">map/creep.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -207,6 +220,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">map/emptyHpBar.png</key>
             <key type="filename">map/hpBar.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>

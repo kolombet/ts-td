@@ -24,7 +24,7 @@ export default class WaveManager implements IAnimatable, IDestroyable {
 
     public loadData():WaveData[] {
         let waves = [];
-        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 10, 10, 1, 1, 1));
         waves.push(WaveData.create( 1, 100, 1, 1, 1));
         waves.push(WaveData.create( 1, 100, 1, 1, 1));
         waves.push(WaveData.create( 1, 100, 1, 1, 1));

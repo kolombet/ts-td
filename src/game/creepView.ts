@@ -8,9 +8,13 @@ import IsoTransform from "./isoTransform";
 import App from "./app";
 import { Guid } from "guid-typescript";
 import Config from "./config";
+import Gauge from "./gauge";
 
 export default class CreepView extends Sprite implements IGameView {
     private _creepData: BaseCreepData;
+
+    private _hpBar:Sprite;
+    private _hpBarGauge:Gauge;
     // private _animations: Object;//<MovieClip>
     // private _animationsList: MovieClip[];
     // private _playingAnimation: string;
@@ -25,6 +29,17 @@ export default class CreepView extends Sprite implements IGameView {
         img.x = -img.width/2;
         img.y = -img.height/2;
         this.addChild(img);
+
+        this._hpBar = new Sprite();
+        this.addChild(this._hpBar);
+
+        this._hpBar.addChild(new Image(App.resources.assets.getTexture("emptyHpBar")));
+        this._hpBarGauge = new Gauge(App.resources.assets.getTexture("hpBar"));
+        this._hpBarGauge.ratio = .5;
+        this._hpBar.addChild(this._hpBarGauge);
+        this._hpBar.scale = 0.5;
+        this._hpBar.x = - this._hpBar.width/2;
+        this._hpBar.y = -20;
 
 
         // this._animations = {};
@@ -97,6 +112,9 @@ export default class CreepView extends Sprite implements IGameView {
             return;
             //console.log("creep data null");
         }
+
+
+        this._hpBarGauge.ratio = this._creepData.getHealthRatio();
 
         // if (this._creepData.rotationName && this._playingAnimation != this._creepData.rotationName) {
         //     this.playAnimation(this._creepData.rotationName);

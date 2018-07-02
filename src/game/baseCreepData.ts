@@ -25,7 +25,8 @@ export default class BaseCreepData implements IGameObj {
     private _currentTile: TileData;
     private _currentNode: number = 0;
     private _rangeToBase: number = 0;
-    private _hp: number = 1000;
+    private _hp: number;
+    private _maxHp: number;
     private _id: number;
     private _x: number;
     private _y: number;
@@ -45,6 +46,7 @@ export default class BaseCreepData implements IGameObj {
     constructor(state: PlayState, wave: WaveData, creepId: number, path: TileData[]) {
         this._moveVector = new Vec2();
         this._hp = wave.health;
+        this._maxHp = wave.health;
         this._speed = wave.speed * Config.TILE_SIZE;
         this._reward = wave.reward;
         this._state = state;
@@ -52,6 +54,12 @@ export default class BaseCreepData implements IGameObj {
         this._path = path;
         this._uid = Guid.create().toString();
         //console.log("creep data init");
+    }
+
+    public getHealthRatio() {
+        if (this._maxHp == 0)
+            return 1;
+        return this.hp / this._maxHp;
     }
 
     public getGuid(): string {
@@ -218,7 +226,7 @@ export default class BaseCreepData implements IGameObj {
             return;
 
         this._hp -= value;
-        console.log("creep " + this.id + " hit, hp value: " + this._hp);
+        // console.log("creep " + this.id + " hit, hp value: " + this._hp);
         if (this._hp <= 0) {
             //console.log("creep " + this.id + " is killed");
             this._isDead = true;

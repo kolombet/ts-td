@@ -21,10 +21,10 @@ export default class CreepView extends Sprite implements IGameView {
         this._uid = Guid.create().toString();
         this._creepData = data;
 
-        // const img = new Image(App.resources.assets.getTexture("creep"));
-        // img.x = -img.width/2;
-        // img.y = -img.height/2;
-        // this.addChild(img);
+        const img = new Image(App.resources.assets.getTexture("creep"));
+        img.x = -img.width/2;
+        img.y = -img.height/2;
+        this.addChild(img);
 
 
         // this._animations = {};
@@ -37,7 +37,7 @@ export default class CreepView extends Sprite implements IGameView {
         // this.playAnimation("TL");
 
 
-        // if (Config.DEBUG_CREEP_CENTER)
+        if (Config.DEBUG_CREEP_CENTER)
             this.drawFooting();
     }
 

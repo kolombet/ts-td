@@ -130,9 +130,15 @@ export default class TowerManager implements IDestroyable, IAnimatable {
 
     public upgradeTower(towerData: BaseTowerData) {
         if (towerData instanceof BasementTower) {
+            const newTower = TowerFactory.createBasicTower(this._state);
+            if (newTower.price > this._state.money) {
+                //TODO: write not enough money
+                return;
+            }
+            this._state.money -= newTower.price;
+
             const index = this._collection.indexOf(towerData);
             this._collection.splice(index, 1);
-            const newTower = TowerFactory.createBasicTower(this._state);
             newTower.targetTiles = towerData.targetTiles;
             this.onTowerDestroyed.dispatch(towerData);
             this._onTowerSpawned.dispatch(newTower);

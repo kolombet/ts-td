@@ -13,7 +13,7 @@ export default class Config {
 	public static BACKGROUND_RES: string = Config.BASE_URL + "background_";
 	public static RES_FORMAT: string = ".png";
 	public static START_LIVES_COUNT: number = 10;
-	public static START_MONEY_COUNT: number = 50;
+	public static START_MONEY_COUNT: number = 100;
 	public static WAVE_DELAY: number = 5;
 	public static BULLET_SPEED: number = 3;
 	public static MIN_BULLET_DESTROY_DISTANCE: number = 5;

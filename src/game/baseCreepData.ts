@@ -1,5 +1,5 @@
 import Signal from "./Signal";
-import { IAnimatable, IDestroyable, IGameObj } from "./interfaces";
+import {IAnimatable, IDestroyable, IGameObj} from "./interfaces";
 import PlayState from "./playState";
 import TileData from "./tileData";
 import TileType from "./tileType";
@@ -13,12 +13,13 @@ import Util from "./util";
 import KPoint from "./KPoint";
 import IsoTransform from "./isoTransform";
 import ObjType from "./objType";
-import { Guid } from "guid-typescript";
+import {Guid} from "guid-typescript";
 
 export default class BaseCreepData implements IGameObj {
     get isDead(): boolean {
         return this._isDead;
     }
+
     private _speed: number;
     private _path: TileData[];
     private _currentTile: TileData;
@@ -107,7 +108,15 @@ export default class BaseCreepData implements IGameObj {
 
     }
 
+    private round(value: number, x: number = 2, base: number = 10): number {
+        // return Number(Math.round(parseFloat(value + 'e' + decimals)) + 'e-' + decimals);
+        const pow = Math.pow(base || 10, x);
+        return +(Math.round(value * pow) / pow);
+    }
+
     private moveToTargetOld(distance: number): void {
+        // distance =  this.round(distance);
+        // distance = 0.5;
         if (this._path == null || this._isDead)
             return;
 
@@ -118,34 +127,48 @@ export default class BaseCreepData implements IGameObj {
         }
         this._currentTile = this._path[this._currentNode];
 
-        let vec: Vec2 = Pools.vec2.object;
-        vec.x = this._currentTile.cx - this.x;
-        vec.y = this._currentTile.cy - this.y;
-        if (this._moveVector.equals(vec) == false) {
-            this._moveVector = vec;
-            if (vec.length > 0) {
-                let faceVec: Vec2 = IsoTransform.from(vec);
-                this.updateRotation(faceVec);
-            }
-        }
+        let moveVector: Vec2 = Pools.vec2.object;
+        moveVector.x = this.round(this._currentTile.cx - this.x);
+        moveVector.y = this.round(this._currentTile.cy - this.y);
+        // if (this._moveVector.equals(moveVector) == false) {
+        //     this._moveVector = moveVector;
+        //     if (moveVector.length > 0) {
+        //         let faceVec: Vec2 = IsoTransform.from(moveVector);
+        //         this.updateRotation(faceVec);
+        //     }
+        // }
 
-        if (vec.length > distance) {
-            vec.normalizeSelf(distance);
+        if (moveVector.length > distance) {
+            // console.log("distance " + distance);
+            moveVector.normalizeSelf(distance);
+            // moveVector.x = this.round(moveVector.x);
+            // moveVector.y = this.round(moveVector.y);
+
+            if (this._moveVector.equals(moveVector) == true) {
+                // console.log("move vector same");
+            } else {
+                // console.log("move vector " + moveVector.toString());
+            }
+            this._moveVector = moveVector;
         }
         else {
             this._currentNode++;
-
-            let len = vec.getLength();
-            let remains: number = distance - len;
-            if (isNaN(remains)) {
-                //console.log("ERROR: got NaN")
-            }
-            this.moveToTargetOld(remains);
+            return;
+            // let len = moveVector.getLength();
+            // let remains: number = distance - len;
+            // moveVector.normalizeSelf(remains);
+            // if (isNaN(remains)) {
+            //console.log("ERROR: got NaN")
+            // }
+            // this.moveToTargetOld(remains);
+            // return;
             ////console.log("move to target " + remains);
         }
-        this.x += vec.x;
-        this.y += vec.y;
-        Pools.vec2.object = vec;
+        // console.log("this.x " + this.x);
+        // this.x += moveVector.x;
+        // this.y += moveVector.y;
+        this.x = this.round(this.x + moveVector.x, 0);
+        this.y = this.round(this.y + moveVector.y, 0);
     }
 
     private updateRotation(vec: Vec2): void {

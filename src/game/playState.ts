@@ -64,9 +64,14 @@ export class PlayState implements IAnimatable, IDestroyable {
         this._bulletManager = new BulletManager(this);
         this._waveManager = new WaveManager(this);
         // let waveData:Object = App.resources.assets.getObject(Config.WAVE_RES + this._levelID);
-        let waveDataRaw = App.resources.assets.getObject(Config.WaveRes);
-        let waveData = JSON.parse(waveDataRaw);
-        this._waveManager.load(waveData["data"]);
+
+
+
+        // let waveDataRaw = App.resources.assets.getObject(Config.WaveRes);
+        // let waveData = JSON.parse(waveDataRaw);
+        // this._waveManager.load(waveData["data"]);
+
+        this._waveManager.loadData();
 
         if (Config.DEBUG_WAVE_AUTOSTART)
             this._waveManager.initWave(0);

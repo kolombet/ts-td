@@ -22,14 +22,28 @@ export default class WaveManager implements IAnimatable, IDestroyable {
         this._waitingForWave = false;
     }
 
-    public load(data: Object): void {
-        let waves: any[] = data as any[];
-        for (let i: number = 0; i < waves.length; i++) {
-            let wave: WaveData = new WaveData();
-            wave.init(waves[i]);
-            this._waves.push(wave);
-        }
+    public loadData():WaveData[] {
+        let waves = [];
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        waves.push(WaveData.create( 1, 100, 1, 1, 1));
+        this._waves = waves;
+        return waves;
     }
+
+    // public load(data: Object): void {
+    //     let waves: any[] = data as any[];
+    //     for (let i: number = 0; i < waves.length; i++) {
+    //         let wave: WaveData = new WaveData();
+    //         wave.init(waves[i]);
+    //         this._waves.push(wave);
+    //     }
+    // }
 
     public initWave(waveID: number): void {
         if (waveID > this._waves.length) {

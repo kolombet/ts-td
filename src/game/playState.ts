@@ -183,21 +183,11 @@ export class PlayState implements IAnimatable, IDestroyable {
     }
 
     public activateBuild(towerFactory: Function): void {
-        //console.log("activateBuild");
         this.deactivatePrevMode();
         this._currentMode = new BuildTowerMode();
         this._currentMode.activate(this, towerFactory);
         this._modeActivated.dispatch(this._currentMode);
-        // this.activateMode(BuildTowerMode, towerFactory);
     }
-
-    // public activateMode(Mode:Class, data:Object = null):void
-    // {
-    //     this.deactivatePrevMode();
-    //     this._currentMode = new Mode();
-    //     this._currentMode.activate(this, data);
-    //     this._modeActivated.dispatch(this._currentMode);
-    // }
 
     private deactivatePrevMode(): void {
         if (this._currentMode != null) {

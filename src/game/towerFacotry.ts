@@ -7,8 +7,8 @@ import TouchPhase from "starling/events/TouchPhase";
 import TextField from "starling/text/TextField";
 import Align from "starling/utils/Align";
 import Texture from "starling/textures/Texture";
-import { IDestroyable } from "./interfaces";
-import { PlayState } from "./playState";
+import {IDestroyable} from "./interfaces";
+import {PlayState} from "./playState";
 import KButton from "./kbutton";
 import BaseMode from "./baseMode";
 import EditorMode from "./editorMode";
@@ -26,17 +26,14 @@ export class TowerFactory {
     }
 
     public static createBasicTower(state: PlayState): BaseTowerData {
-        //console.log("createBasicTower")
         return new BasicTower(state);
     }
 
     public static createAOETower(state: PlayState): BaseTowerData {
-        //console.log("createAOETower")
         return new AOETower(state);
     }
 
     public static createFrostTower(state: PlayState): BaseTowerData {
-        //console.log("createFrostTower")
         return new FrostTower(state);
     }
 
